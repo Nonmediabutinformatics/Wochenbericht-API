@@ -1,26 +1,11 @@
-const https = require('https');
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
 
-const options = {
-  hostname: 'wochenbericht-api.onrender.com',
-  port: 443,
-  path: '/',
-  method: 'GET'
-};
-
-const req = https.request(options, (res) => {
-  let data = '';
-
-  res.on('data', (chunk) => {
-    data += chunk;
-  });
-
-  res.on('end', () => {
-    console.log(data);
-  });
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
 });
 
-req.on('error', (error) => {
-  console.error(error);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
-
-req.end();
